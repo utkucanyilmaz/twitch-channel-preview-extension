@@ -43,34 +43,39 @@ function updateEventListeners() {
 }
 
 function mutationCallbackFn(mutationRecords) {
-  let nodes;
-  let nodesArr;
   mutationRecords.forEach(mutation => {
-    nodes = mutation.target.querySelectorAll("*");
-    nodesArr = Array.from(nodes);
-  });
-
-  const targetNode = nodesArr.filter(node => node.classList.contains("dIzyTl"));
-
-  if (targetNode.length > 0) {
-    const parentElement = targetNode[0];
-    const existingImage = parentElement.querySelector("#sidenav-image");
-    if (existingImage) {
-      existingImage.onload = function () {
-        existingImage.onload = null;
-      };
-      existingImage.src = "";
-      existingImage.src = imageUrl;
-    } else {
-      const newElement = document.createElement("img");
-      newElement.id = "sidenav-image";
-      newElement.onload = function () {
-        newElement.onload = null;
-      };
-      newElement.src = "";
-      newElement.src = imageUrl;
-      newElement.style.padding = "5px";
-      parentElement.prepend(newElement);
+    if (
+      mutation.addedNodes.length > 0 &&
+      mutation.addedNodes[0].classList &&
+      mutation.addedNodes[0].classList.contains("tw-dialog-layer")
+    ) {
+      const nodes = mutation.target.querySelectorAll("*");
+      const nodesArr = Array.from(nodes);
+      const targetNode = nodesArr.filter(node =>
+        node.classList.contains("dIzyTl")
+      );
+      if (targetNode.length > 0) {
+        const parentElement = targetNode[0];
+        const existingImage = parentElement.querySelector("#sidenav-image");
+        if (existingImage) {
+          existingImage.onload = function () {
+            existingImage.onload = null;
+          };
+          existingImage.src = "";
+          existingImage.src = imageUrl;
+        } else {
+          const newElement = document.createElement("img");
+          newElement.id = "sidenav-image";
+          newElement.onload = function () {
+            newElement.onload = null;
+          };
+          newElement.src = "";
+          newElement.src = imageUrl;
+          newElement.style.padding = "5px";
+          parentElement.prepend(newElement);
+        }
+      }
     }
-  }
+    return;
+  });
 }
