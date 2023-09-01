@@ -2,6 +2,7 @@ let imageUrl = "";
 
 const observer = new MutationObserver(mutation => {
   mutationCallbackFn(mutation);
+  updateEventListeners();
 });
 
 observer.observe(document.body, {
@@ -52,9 +53,8 @@ function mutationCallbackFn(mutationRecords) {
       const nodes = mutation.target.querySelectorAll("*");
       const nodesArr = Array.from(nodes);
       const targetNode = nodesArr.filter(node =>
-        node.classList.contains("dIzyTl")
+        node.classList.contains("sXUvw")
       );
-      updateEventListeners();
       const parentElement = targetNode[0];
 
       const newElement = document.createElement("img");
@@ -67,6 +67,7 @@ function mutationCallbackFn(mutationRecords) {
       newElement.style.padding = "5px";
       parentElement.prepend(newElement);
     }
+
     return;
   });
 }
