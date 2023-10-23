@@ -53,7 +53,7 @@ function mutationCallbackFn(mutationRecords) {
       const nodes = mutation.target.querySelectorAll("*");
       const nodesArr = Array.from(nodes);
       const targetNode = nodesArr.filter(node =>
-        node.classList.contains("bEHpPc")
+        node.classList.contains("iqfrck")
       );
       const parentElement = targetNode[0];
 
